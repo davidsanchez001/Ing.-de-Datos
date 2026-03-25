@@ -1,0 +1,45 @@
+#Crear base de datos
+CREATE DATABASE tarea_mysql;
+USE tarea_mysql;
+
+#Tabla con tipos numéricos
+CREATE TABLE productos (
+    id INT PRIMARY KEY,
+    unidades SMALLINT,
+    visitas BIGINT,
+    precio DECIMAL(10,2),
+    peso FLOAT,
+    promedio DOUBLE
+) ENGINE = InnoDB;
+
+#Tabla con tipos de caracteres
+CREATE TABLE clientes (
+    id_cliente INT PRIMARY KEY,
+    codigo CHAR(8),
+    nombre VARCHAR(100),
+    correo VARCHAR(150),
+    direccion VARCHAR(200),
+    descripcion TEXT,
+    observaciones LONGTEXT
+) ENGINE = InnoDB;
+
+#Insertar datos de ejemplo
+INSERT INTO clientes VALUES
+(1, 'A001', 'Juan Perez', 'juan@gmail.com', 'Calle 1', 'Cliente frecuente', 'Sin observaciones'),
+(2, 'A002', 'Maria Lopez', 'maria@gmail.com', 'Calle 2', 'Cliente nuevo', 'Ninguna');
+
+#Uso de transacción con ROLLBACK (revierte eliminación)
+START TRANSACTION;
+
+DELETE FROM clientes
+WHERE id_cliente = 1;
+
+ROLLBACK;
+
+#Uso de transacción con COMMIT (elimina definitivamente)
+START TRANSACTION;
+
+DELETE FROM clientes
+WHERE id_cliente = 2;
+
+COMMIT;
