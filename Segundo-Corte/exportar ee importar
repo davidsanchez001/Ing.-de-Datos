@@ -1,0 +1,44 @@
+#IMPORTAR DATOS DESDE CSV
+LOAD DATA INFILE '/ruta/archivo.csv'
+INTO TABLE automovil
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(idauto, marca);
+
+#EXPORTAR DATOS A CSV
+SELECT *
+INTO OUTFILE '/ruta/salida.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+FROM automovil;
+
+#CONSULTAS USANDO STRING Y VARCHAR
+
+# Buscar automóviles por marca específica
+SELECT * 
+FROM automovil
+WHERE marca = 'Toyota';
+
+#Buscar automóviles que contengan una palabra
+SELECT * 
+FROM automovil
+WHERE marca LIKE '%Ford%';
+
+#Convertir texto a mayúsculas
+SELECT UPPER(marca) AS marca_mayuscula
+FROM automovil;
+
+#Contar cantidad de caracteres de la marca
+SELECT marca, LENGTH(marca) AS longitud
+FROM automovil;
+
+#Concatenar texto
+SELECT CONCAT('Marca: ', marca) AS descripcion
+FROM automovil;
+
+#Substring (extraer parte del texto)
+SELECT SUBSTRING(marca, 1, 3) AS inicio_marca
+FROM automovil;
