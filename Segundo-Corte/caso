@@ -1,0 +1,22 @@
+En una base de datos de una compañía de seguros, se tienen las tablas compania y automovil.
+Realizar una subconsulta que permita obtener los automóviles cuya marca pertenezca a una compañía específica.
+Realizar una consulta múltiple (JOIN) que muestre el nombre de la compañía junto con la marca de sus automóviles.
+#posible solucion
+#SUBCONSULTA
+#Obtener automóviles de una compañía específica
+
+SELECT *
+FROM automovil
+WHERE idauto IN (
+    SELECT idcompania
+    FROM compania
+    WHERE nombreCompania = 'Seguros ABC'
+);
+
+#CONSULTA MÚLTIPLE 
+#Mostrar nombre de la compañía y marca del automóvil
+
+SELECT c.nombreCompania, a.marca
+FROM compania c
+INNER JOIN automovil a
+ON c.idcompania = a.idauto;
