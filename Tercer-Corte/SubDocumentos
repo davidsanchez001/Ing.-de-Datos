@@ -1,0 +1,165 @@
+use banda
+switched to db banda
+db
+banda
+db.createCollection("RockBand")
+{ ok: 1 }
+show dbs
+admin    40.00 KiB
+banda    16.00 KiB
+config  108.00 KiB
+local    92.00 KiB
+test      8.00 KiB
+tienfd    1.00 MiB
+// punto 1
+db.rockband.insert([
+{name:"The Beatles",country:"Reino Unido",dataCreate("1960,03,21")},
+{name:"Led Zeppelin",country:"Reino Unido",dataCreate("1968,09,25")},
+{name:"Queen",country:"Reino Unido",dataCreate("1970,06,27")},
+{name:"AC/DC",country:"Australia",dataCreate("1973,11,01")},
+db.rockband.insertMany([
+  {name:"Bon Jovi",
+  country:"USA",
+  url:"https://www.bonjovi.com/",
+  album:[
+  {title: "Bon Jovi",
+  dateCreated: new Date(1984,09,21),
+  songs:[
+  {title:"Runaway"},
+  {title:"Roulette"},
+  {title:"She Don't Know Me"}
+  ]}]},
+  {name:"Guns & Roses",
+  country:"USA",
+  url:"https://www.gunsnroses.com/",
+  album:[
+  {
+  title:"Appetite for Destruction",
+  dateCreated:new Date(1987,6,21),
+  songs:[
+  {title:"Welcome to the Jungle"},
+  {title:"Sweet Child O' Mine"},
+  {title:"Paradise City"}
+  ]}]},
+  {name:"The Beatles",
+  country:"UK",
+  url: "https://www.thebeatles.com/",
+  album:[
+  {
+  title:"Please Please Me",
+  dateCreated:new Date(1963,2,22),
+  songs:[
+  {title:"Love Me Do"},
+  {title:"Twist and Shout"},
+  {title:"Please Please Me"}
+  ]}]},
+  {name:"Queen",
+  country:"UK",
+  url:"https://www.queenonline.com/",
+  album: [
+  {
+  title:"Queen",
+  dateCreated:new Date(1973,6,13),
+  songs:[
+  {title:"Keep Yourself Alive"},
+  { title:"Doing All Right"},
+  { title:"My Fairy King"}
+  ]}]},
+  {name:"AC/DC",
+  country:"Australia",
+  url:"https://www.acdc.com/",
+  album:[
+  {
+  title:"High Voltage",
+  dateCreated:new Date(1975,1,17),
+  songs:[
+  { title:"Baby Please Don't Go"},
+  { title:"She's Got Balls"},
+  { title:"Little Lover"}
+  ]}]},
+])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69fb9d0194d851de5473b965'),
+    '1': ObjectId('69fb9d0194d851de5473b966'),
+    '2': ObjectId('69fb9d0194d851de5473b967'),
+    '3': ObjectId('69fb9d0194d851de5473b968'),
+    '4': ObjectId('69fb9d0194d851de5473b969')
+  }
+}
+db._collections.rockband
+banda.rockband
+//punto 2 y 3
+db.rockband.updateOne(
+  {name:"Bon Jovi"},
+  {$set:{
+  "album.1.title":"Slippery When Wet",
+  "album.1.dateCreated":new Date(1986,7,18),
+  "album.1.songs":[
+    {title:"You Give Love a Bad Name"},
+    {title:"Livin' on a Prayer"},
+    {title:"Wanted Dead or Alive"},
+    {title:"Never Say Goodbye"},
+    {title:"Wild in the Streets"}
+  ]}})	
+db.rockband.updateOne(
+  {name:"Guns & Roses"},
+  {$set:{
+  "album.1.title":"Use Your Illusion I",
+  "album.1.dateCreated":new Date(1991,8,17),
+  "album.1.songs":[
+    {title:"November Rain"},
+    {title:"Live and Let Die"},
+    {title:"Don't Cry"},
+    {title:"Civil War"},
+    {title:"Estranged"}
+  ]}})
+db.rockband.updateOne(
+  {name:"The Beatles"},
+  {$set:{
+  "album.1.title":"Abbey Road",
+  "album.1.dateCreated":new Date(1969,8,26),
+  "album.1.songs":[
+    {title:"Come Together"},
+    {title:"Something"},
+    {title:"Here Comes the Sun"},
+    {title:"Octopus's Garden"},
+    {title:"Let It Be"}
+  ]}})
+db.rockband.updateOne(
+  {name:"Queen"},
+  {$set:{
+  "album.1.title":"A Night at the Opera",
+  "album.1.dateCreated":new Date(1975, 10, 21),
+  "album.1.songs":[
+    {title:"Bohemian Rhapsody"},
+    {title:"You're My Best Friend"},
+    {title:"Love of My Life"},
+    {title:"Death on Two Legs"},
+    {title:"The Prophet's Song"}
+  ]}})
+db.rockband.updateOne(
+  {name:"AC/DC"},
+  {$set:{
+  "album.1.title":"Back in Black",
+  "album.1.dateCreated":new Date(1980,6,25),
+  "album.1.songs":[
+    {title:"***** Bells"},
+    {title:"Shoot to Thrill"},
+    {title:"Back in Black"},
+    {title:"You Shook Me All Night Long"},
+    {title:"Rock and Roll Ain't Noise Pollution"}
+  ]}})
+//punto 4
+db.rockband.find({},{_id:0,name:1,country:1,url:1,"album.title":1,"album.songs.title":1})
+//punto 5
+db.rockband.updateOne(
+  {name:"AC/DC"},
+  {$unset:{"album.0.dateCreated":""}}
+)
+//punto 6
+db.rockband.updateOne(
+  {name:"Queen"},
+  {$unset:{"album.0.songs":""}}
+)
