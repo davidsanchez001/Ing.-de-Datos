@@ -12,11 +12,6 @@ local    92.00 KiB
 test      8.00 KiB
 tienfd    1.00 MiB
 // punto 1
-db.rockband.insert([
-{name:"The Beatles",country:"Reino Unido",dataCreate("1960,03,21")},
-{name:"Led Zeppelin",country:"Reino Unido",dataCreate("1968,09,25")},
-{name:"Queen",country:"Reino Unido",dataCreate("1970,06,27")},
-{name:"AC/DC",country:"Australia",dataCreate("1973,11,01")},
 db.rockband.insertMany([
   {name:"Bon Jovi",
   country:"USA",
