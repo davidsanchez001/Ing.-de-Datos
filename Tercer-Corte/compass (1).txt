@@ -1,0 +1,442 @@
+//crear BD 
+use tienfd
+switched to db tienfd
+//verificar que DB este creada
+db
+tienfd
+//crear una collecion producto
+db.createCollection("producto")
+{ ok: 1 }
+// mosntrar las bases de datos
+show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local    84.00 KiB
+tienfd  808.00 KiB
+show collections
+cliente
+producto
+productos
+db.createCollection("dueño")
+{ ok: 1 }
+show collections
+cliente
+dueño
+producto
+productos
+// crear un documento en la coleccion
+db.tienfd.insert({name:"jg. del valle mandarina",proveedor:"fensa"})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69f8ecc8cf4de08a0bbdbe3b')
+  }
+}
+db.tienfd.insertmany([{name:"jg. del valle mandarina",proveedor:"fensa"},{name:"gas. coca cola zero lata 330 ml",proveedor:"fensa"})])
+SyntaxError: Unexpected token, expected "," (1:131)
+
+> 1 | db.tienfd.insertmany([{name:"jg. del valle mandarina",proveedor:"fensa"},{name:"gas. coca cola zero lata 330 ml",proveedor:"fensa"})])
+    |                                                                                                                                    ^
+db.tienfd.insertmany([{name:"jg. del valle mandarina",proveedor:"fensa"},{name:"gas. coca cola zero lata 330 ml",proveedor:"fensa"}])
+TypeError: db.tienfd.insertmany is not a function
+db.tienfd.insert([{name:"jg. del valle mandarina",proveedor:"fensa"},{name:"gas. coca cola zero lata 330 ml",proveedor:"fensa"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69f8eea5cf4de08a0bbdbe3c'),
+    '1': ObjectId('69f8eea5cf4de08a0bbdbe3d')
+  }
+}
+db.tienfd.find
+[Function: find] AsyncFunction {
+  returnsPromise: true,
+  apiVersions: [ 1, Infinity ],
+  returnType: 'Cursor',
+  serverVersions: [ '0.0.0', '999.999.999' ],
+  topologies: [ 'ReplSet', 'Standalone', 'Sharded', 'LoadBalanced' ],
+  deprecated: false,
+  platforms: [ 'Compass', 'Browser', 'CLI' ],
+  isDirectShellCommand: false,
+  acceptsRawInput: false,
+  shellCommandCompleter: undefined,
+  newShellCommandCompleter: undefined,
+  help: [Function (anonymous)] Help
+}
+db.tienfd.find.name
+find
+db.tienfd.find([name:"jg. del valle mandarina"])
+SyntaxError: Unexpected token, expected "," (1:20)
+
+> 1 | db.tienfd.find([name:"jg. del valle mandarina"])
+    |                     ^
+db.tienfd.findone({"proveedor":"fensa"})
+TypeError: db.tienfd.findone is not a function
+db.tienfd.findone({"proveedor":"fensa"})
+TypeError: db.tienfd.findone is not a function
+show collections
+cliente
+dueño
+producto
+productos
+tienfd
+db.productos.find()
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4ab'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-01-02T00:00:00.000Z,
+  MES: 1,
+  MES_NOMBRE: 'January',
+  DIA_SEMANA: 'Thursday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 7.8,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 7.8,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -7.8,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4ac'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-01-21T00:00:00.000Z,
+  MES: 1,
+  MES_NOMBRE: 'January',
+  DIA_SEMANA: 'Tuesday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 7.8,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 7.8,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -7.8,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4ad'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-01-23T00:00:00.000Z,
+  MES: 1,
+  MES_NOMBRE: 'January',
+  DIA_SEMANA: 'Thursday',
+  UDS_2024: 2,
+  UDS_2025: 0,
+  IMPORTE_2024: 15.6,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 7.8,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -2,
+  VAR_IMPORTE: -15.6,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4ae'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-01-27T00:00:00.000Z,
+  MES: 1,
+  MES_NOMBRE: 'January',
+  DIA_SEMANA: 'Monday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 7.8,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 7.8,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -7.8,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4af'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-01-29T00:00:00.000Z,
+  MES: 1,
+  MES_NOMBRE: 'January',
+  DIA_SEMANA: 'Wednesday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 7.8,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 7.8,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -7.8,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b0'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-01-30T00:00:00.000Z,
+  MES: 1,
+  MES_NOMBRE: 'January',
+  DIA_SEMANA: 'Thursday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 7.8,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 7.8,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -7.8,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b1'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-01-31T00:00:00.000Z,
+  MES: 1,
+  MES_NOMBRE: 'January',
+  DIA_SEMANA: 'Friday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 7.8,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 7.8,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -7.8,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b2'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-01T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Saturday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b3'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-02T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Sunday',
+  UDS_2024: 2,
+  UDS_2025: 0,
+  IMPORTE_2024: 17.4,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -2,
+  VAR_IMPORTE: -17.4,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b4'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-04T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Tuesday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b5'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-05T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Wednesday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b6'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-09T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Sunday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b7'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-14T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Friday',
+  UDS_2024: 2,
+  UDS_2025: 0,
+  IMPORTE_2024: 17.4,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -2,
+  VAR_IMPORTE: -17.4,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b8'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-17T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Monday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4b9'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-19T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Wednesday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4ba'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-21T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Friday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4bb'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-22T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Saturday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4bc'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-26T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Wednesday',
+  UDS_2024: 2,
+  UDS_2025: 0,
+  IMPORTE_2024: 17.4,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -2,
+  VAR_IMPORTE: -17.4,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4bd'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-02-27T00:00:00.000Z,
+  MES: 2,
+  MES_NOMBRE: 'February',
+  DIA_SEMANA: 'Thursday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+{
+  _id: ObjectId('69f8e2bccefc34a41fc3d4be'),
+  PRODUCTO: 'AGUA BRISA 6UND X LITRO BOT',
+  FECHA: 2025-03-03T00:00:00.000Z,
+  MES: 3,
+  MES_NOMBRE: 'March',
+  DIA_SEMANA: 'Monday',
+  UDS_2024: 1,
+  UDS_2025: 0,
+  IMPORTE_2024: 8.7,
+  IMPORTE_2025: 0,
+  PRECIO_UNIT_2024: 8.7,
+  PRECIO_UNIT_2025: 0,
+  VAR_UDS: -1,
+  VAR_IMPORTE: -8.7,
+  ES_DEVOLUCION: 0
+}
+Type "it" for more
+db.productos.findone({"proveedor":"fensa"})
+TypeError: db.productos.findone is not a function
+db.productos.findOne({"proveedro":"fensa"})
+null
+db.createCollection("producto2")
+{ ok: 1 }
+db.productos.insertMany([
+  { categoria: "gaseosas",            productos_activos: 16, precio_promedio: 3885, stock_total: 820,  valor_total_inventario: 3185700 },
+  { categoria: "aguas",               productos_activos: 10, precio_promedio: 2762, stock_total: 785,  valor_total_inventario: 2168070 },
+  { categoria: "jugos",               productos_activos:  6, precio_promedio: 3895, stock_total: 265,  valor_total_inventario: 1032175 },
+  { categoria: "energeticas",         productos_activos:  3, precio_promedio: 8033, stock_total:  80,  valor_total_inventario:  642640 },
+  { categoria: "te y bebidas",        productos_activos:  2, precio_promedio: 3195, stock_total:  65,  valor_total_inventario:  207785 },
+  { categoria: "hidratantes",         productos_activos:  1, precio_promedio: 3600, stock_total:  30,  valor_total_inventario:   91800 },
+  { categoria: "gaseosas sin azucar", productos_activos:  5, precio_promedio: 3861, stock_total: 260,  valor_total_inventario: 1003860 },
+  { categoria: "packs y combos",      productos_activos:  0, precio_promedio:    0, stock_total:   0,  valor_total_inventario:       0 },
+  { categoria: "bebidas vegetales",   productos_activos:  0, precio_promedio:    0, stock_total:   0,  valor_total_inventario:       0 },
+  { categoria: "latas",               productos_activos:  2, precio_promedio: 3558, stock_total: 110,  valor_total_inventario:  391380 }
+])
