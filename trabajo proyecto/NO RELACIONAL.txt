@@ -1,0 +1,251 @@
+use("stock_boost");
+
+//LIMPIEZA
+["proveedores","catalogo_productos","ventas_mensuales","categorias_resumen"]
+  .forEach(c => db[c].drop());
+
+//PROVEEDORES
+db.proveedores.insertMany([
+  {
+    codigo:"PRV001",nombre:"Femsa Coca-Cola Colombia",ciudad:"Bogotá",activo:true,
+    contactos:[
+      {nivel:1,cargo:"Gerencia Comercial",telefono:"3001000001",email:"pedidos@coca-cola.com.co"},
+      {nivel:2,cargo:"Asesor de Zona",telefono:"3001000002",email:"zona@coca-cola.com.co"},
+      {nivel:3,cargo:"Logística y Despacho",telefono:"3001000003",email:"logistica@coca-cola.com.co"}
+    ]
+  },
+  {
+    codigo:"PRV002",nombre:"Postobón S.A.",ciudad:"Bogotá",activo:true,
+    contactos:[
+      {nivel:1,cargo:"Gerencia Comercial Bogotá",telefono:"3002000001",email:"gerencia@postobon.com.co"},
+      {nivel:2,cargo:"Asesor Comercial",telefono:"3002000002",email:"ventas@postobon.com.co"},
+      {nivel:3,cargo:"Coordinador de Entregas",telefono:"3002000003",email:"entregas@postobon.com.co"}
+    ]
+  }
+]);
+db.proveedores.createIndex({codigo:1},{unique:true});
+print("✔ proveedores: "+db.proveedores.countDocuments());
+const prvFemsa=db.proveedores.findOne({codigo:"PRV001"})._id;
+const prvPostobon=db.proveedores.findOne({codigo:"PRV002"})._id;
+
+//CATÁLOGO DE PRODUCTOS
+db.catalogo_productos.insertMany([
+  {codigo:"P001",nombre:"GAS. COCA COLA X 1.5 LT",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:5087,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P002",nombre:"AGUA BRISA LITRO BOT",categoria:"aguas",clasificacion_abc:"A",precio_venta:1833,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P003",nombre:"GAS. COCA COLA X 400 ML",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:2711,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P004",nombre:"GAS. COCA COLA ORIGINAL X 2.5 LT*",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:7219,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa,variante:"presentacion_especial"},
+  {codigo:"P005",nombre:"GAS. COCA COLA MINI X 250 ML",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:1992,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P006",nombre:"AGUA BRISA BIDON X 6 LITROS",categoria:"aguas",clasificacion_abc:"A",precio_venta:7409,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P007",nombre:"GAS. COCA COLA S/AZUCAR X 1.5 LTS",categoria:"gaseosas sin azucar",clasificacion_abc:"A",precio_venta:4894,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P008",nombre:"GAS. COCA COLA ZERO MINI X 250 ML",categoria:"gaseosas sin azucar",clasificacion_abc:"A",precio_venta:1356,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P009",nombre:"GAS. COCA COLA ZERO X 400 ML",categoria:"gaseosas sin azucar",clasificacion_abc:"A",precio_venta:2758,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P010",nombre:"GAS. QUATRO TORON X 1.5 ML",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:4193,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P011",nombre:"GAS. COCA COLA S/AZUCAR X 2.5 LTS",categoria:"gaseosas sin azucar",clasificacion_abc:"A",precio_venta:7197,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P012",nombre:"AGUA BRISA BOT X 600 ML",categoria:"aguas",clasificacion_abc:"A",precio_venta:1641,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P013",nombre:"GAS. COCA COLA X 600 ML",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:3358,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P014",nombre:"JG. DEL VALLE FRESH FRU. NARANJA X1.5 M",categoria:"jugos",clasificacion_abc:"A",precio_venta:4004,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P015",nombre:"JG. DEL VALLE FRESH CITRUS X 400 ML",categoria:"jugos",clasificacion_abc:"A",precio_venta:1889,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P016",nombre:"AGUA BRISA MANZANA BOT X 1.5 LT",categoria:"aguas",clasificacion_abc:"A",precio_venta:3770,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P017",nombre:"GAS. SPRITE X 1.5ML",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:4443,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P018",nombre:"GAS. QUATRO TORON X 400 ML",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:2500,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P019",nombre:"JG. DEL VALLE FRESH FRU/CITRI X 2.5 LT",categoria:"jugos",clasificacion_abc:"A",precio_venta:5579,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P020",nombre:"AGUA BRISA MARACUYA BOT X 1.5 LT",categoria:"aguas",clasificacion_abc:"A",precio_venta:3951,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P021",nombre:"GAS. KOLA ROMAN X 400ML",categoria:"gaseosas",clasificacion_abc:"A",precio_venta:2353,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P022",nombre:"GAS. SPRITE X 400 ML",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:2400,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P023",nombre:"GAS. SCHWEPPES GINGER X 1.5 LT",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:4501,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P024",nombre:"AGUA MANANTIAL BOT X 600 ML",categoria:"aguas",clasificacion_abc:"B",precio_venta:2700,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P025",nombre:"GAS. KOLA ROMAN X 1.5 LTS",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:3693,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P026",nombre:"AGUA BRISA MANZANA X 600 ML",categoria:"aguas",clasificacion_abc:"B",precio_venta:2730,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P027",nombre:"GAS. COCA COLA LATA X 330 ML",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:3850,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P028",nombre:"GAS. COCA COLA MINI 250 ML X 6 UND",categoria:"packs y combos",clasificacion_abc:"B",precio_venta:10809,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P029",nombre:"GAS. QUATRO S/AZUCAR X 1.5 LT",categoria:"gaseosas sin azucar",clasificacion_abc:"B",precio_venta:3850,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P030",nombre:"JG. DEL VALLE FRESH SURTCJX180MLPG5LLV6U",categoria:"packs y combos",clasificacion_abc:"B",precio_venta:5463,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P031",nombre:"GAS. SCHWEPPES SODA 1.5 ML",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:4050,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P032",nombre:"AGUA BRISA X 600 ML CON GAS NUEVO",categoria:"aguas con gas",clasificacion_abc:"B",precio_venta:1599,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P033",nombre:"GAS. COCA COLA X 1 LT",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:3849,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P034",nombre:"GAS. QUATRO TORONJ X 3 LTS",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:7023,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P035",nombre:"AGUA BRISA MARACUYA X 600 ML",categoria:"aguas",clasificacion_abc:"B",precio_venta:2571,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P036",nombre:"JG. DEL VALLE FRESH MANDARINA X 1.5 L",categoria:"jugos",clasificacion_abc:"B",precio_venta:4250,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P037",nombre:"AGUA BRISA BOT LIMON X 600 ML",categoria:"aguas",clasificacion_abc:"B",precio_venta:2753,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P038",nombre:"GAS. KOLA ROMAN S/AZUCAR X 1.5LT",categoria:"gaseosas sin azucar",clasificacion_abc:"B",precio_venta:3750,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P039",nombre:"GAS. COCA COLA ORIGINAL 2 X 2.5 LTS",categoria:"packs y combos",clasificacion_abc:"B",precio_venta:12824,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P040",nombre:"GAS. COCA 2.5+ QUATR X1.5LT X 3UND",categoria:"packs y combos",clasificacion_abc:"B",precio_venta:15275,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P041",nombre:"AGUA MANANTIAL BOT C/GAS X 600 ML",categoria:"aguas",clasificacion_abc:"B",precio_venta:2876,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P042",nombre:"AGUA BRISA SAB SURT 6X 280 ML",categoria:"aguas",clasificacion_abc:"B",precio_venta:8547,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvPostobon},
+  {codigo:"P043",nombre:"BEB. SCHWEPPES SODA BOT X 400 ML",categoria:"bebidas con gas",clasificacion_abc:"B",precio_venta:2500,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P044",nombre:"JG. DEL VALLE FRESH MANDARINA X 2.5 L",categoria:"jugos",clasificacion_abc:"B",precio_venta:5650,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P045",nombre:"GAS. COCA COLA 3 LTS + QUATRO X 3 LTS",categoria:"packs y combos",clasificacion_abc:"B",precio_venta:13895,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P046",nombre:"BEB. ENERGIZANTE MONSTER MANGO LTX473ML",categoria:"energeticas",clasificacion_abc:"B",precio_venta:7900,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P047",nombre:"GAS. SPRITE X 3 LTS",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:7217,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P048",nombre:"JG. DEL VALLE FRESH MANDARINA X 400ML",categoria:"jugos",clasificacion_abc:"B",precio_venta:1900,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa},
+  {codigo:"P049",nombre:"GAS. SCHWEPPES GINGER ALE BOT X400 LT",categoria:"gaseosas",clasificacion_abc:"B",precio_venta:2591,activo:true,fecha_registro:new Date("2024-01-01"),proveedor_id:prvFemsa}
+]);
+db.catalogo_productos.createIndex({codigo:1},{unique:true});
+db.catalogo_productos.createIndex({proveedor_id:1});
+db.catalogo_productos.createIndex({categoria:1});
+db.catalogo_productos.createIndex({clasificacion_abc:1});
+db.catalogo_productos.createIndex({activo:1});
+print("✔ catalogo_productos: "+db.catalogo_productos.countDocuments());
+
+//VENTAS MENSUALES
+db.ventas_mensuales.insertMany([
+  {mes:"2025-01",codigo_producto:"P006",nombre:"AGUA BRISA BIDON X 6 LITROS",categoria:"aguas",unidades_vendidas:138,ingresos:1055700},
+  {mes:"2025-02",codigo_producto:"P006",nombre:"AGUA BRISA BIDON X 6 LITROS",categoria:"aguas",unidades_vendidas:100,ingresos:765000},
+  {mes:"2025-03",codigo_producto:"P006",nombre:"AGUA BRISA BIDON X 6 LITROS",categoria:"aguas",unidades_vendidas:84,ingresos:642600},
+  {mes:"2025-04",codigo_producto:"P006",nombre:"AGUA BRISA BIDON X 6 LITROS",categoria:"aguas",unidades_vendidas:104,ingresos:773100},
+  {mes:"2025-01",codigo_producto:"P012",nombre:"AGUA BRISA BOT X 600 ML",categoria:"aguas",unidades_vendidas:26,ingresos:39100},
+  {mes:"2025-02",codigo_producto:"P012",nombre:"AGUA BRISA BOT X 600 ML",categoria:"aguas",unidades_vendidas:12,ingresos:19200},
+  {mes:"2025-03",codigo_producto:"P012",nombre:"AGUA BRISA BOT X 600 ML",categoria:"aguas",unidades_vendidas:35,ingresos:56000},
+  {mes:"2025-04",codigo_producto:"P012",nombre:"AGUA BRISA BOT X 600 ML",categoria:"aguas",unidades_vendidas:40,ingresos:64000},
+  {mes:"2025-01",codigo_producto:"P002",nombre:"AGUA BRISA LITRO BOT",categoria:"aguas",unidades_vendidas:422,ingresos:825600},
+  {mes:"2025-02",codigo_producto:"P002",nombre:"AGUA BRISA LITRO BOT",categoria:"aguas",unidades_vendidas:403,ingresos:785850},
+  {mes:"2025-03",codigo_producto:"P002",nombre:"AGUA BRISA LITRO BOT",categoria:"aguas",unidades_vendidas:339,ingresos:661050},
+  {mes:"2025-04",codigo_producto:"P002",nombre:"AGUA BRISA LITRO BOT",categoria:"aguas",unidades_vendidas:249,ingresos:472200},
+  {mes:"2025-01",codigo_producto:"P016",nombre:"AGUA BRISA MANZANA BOT X 1.5 LT",categoria:"aguas",unidades_vendidas:24,ingresos:96000},
+  {mes:"2025-02",codigo_producto:"P016",nombre:"AGUA BRISA MANZANA BOT X 1.5 LT",categoria:"aguas",unidades_vendidas:17,ingresos:68000},
+  {mes:"2025-03",codigo_producto:"P016",nombre:"AGUA BRISA MANZANA BOT X 1.5 LT",categoria:"aguas",unidades_vendidas:18,ingresos:72200},
+  {mes:"2025-04",codigo_producto:"P016",nombre:"AGUA BRISA MANZANA BOT X 1.5 LT",categoria:"aguas",unidades_vendidas:11,ingresos:40700},
+  {mes:"2025-01",codigo_producto:"P020",nombre:"AGUA BRISA MARACUYA BOT X 1.5 LT",categoria:"aguas",unidades_vendidas:17,ingresos:68000},
+  {mes:"2025-02",codigo_producto:"P020",nombre:"AGUA BRISA MARACUYA BOT X 1.5 LT",categoria:"aguas",unidades_vendidas:13,ingresos:52000},
+  {mes:"2025-03",codigo_producto:"P020",nombre:"AGUA BRISA MARACUYA BOT X 1.5 LT",categoria:"aguas",unidades_vendidas:20,ingresos:80000},
+  {mes:"2025-04",codigo_producto:"P020",nombre:"AGUA BRISA MARACUYA BOT X 1.5 LT",categoria:"aguas",unidades_vendidas:16,ingresos:64000},
+  {mes:"2025-01",codigo_producto:"P005",nombre:"GAS. COCA COLA MINI X 250 ML",categoria:"gaseosas",unidades_vendidas:111,ingresos:222000},
+  {mes:"2025-02",codigo_producto:"P005",nombre:"GAS. COCA COLA MINI X 250 ML",categoria:"gaseosas",unidades_vendidas:63,ingresos:126000},
+  {mes:"2025-03",codigo_producto:"P005",nombre:"GAS. COCA COLA MINI X 250 ML",categoria:"gaseosas",unidades_vendidas:81,ingresos:162000},
+  {mes:"2025-04",codigo_producto:"P005",nombre:"GAS. COCA COLA MINI X 250 ML",categoria:"gaseosas",unidades_vendidas:63,ingresos:126000},
+  {mes:"2025-01",codigo_producto:"P004",nombre:"GAS. COCA COLA ORIGINAL X 2.5 LT*",categoria:"gaseosas",unidades_vendidas:113,ingresos:803450},
+  {mes:"2025-02",codigo_producto:"P004",nombre:"GAS. COCA COLA ORIGINAL X 2.5 LT*",categoria:"gaseosas",unidades_vendidas:90,ingresos:643500},
+  {mes:"2025-03",codigo_producto:"P004",nombre:"GAS. COCA COLA ORIGINAL X 2.5 LT*",categoria:"gaseosas",unidades_vendidas:79,ingresos:564850},
+  {mes:"2025-04",codigo_producto:"P004",nombre:"GAS. COCA COLA ORIGINAL X 2.5 LT*",categoria:"gaseosas",unidades_vendidas:124,ingresos:895750},
+  {mes:"2025-01",codigo_producto:"P007",nombre:"GAS. COCA COLA S/AZUCAR X 1.5 LTS",categoria:"gaseosas sin azucar",unidades_vendidas:39,ingresos:192900},
+  {mes:"2025-02",codigo_producto:"P007",nombre:"GAS. COCA COLA S/AZUCAR X 1.5 LTS",categoria:"gaseosas sin azucar",unidades_vendidas:46,ingresos:227700},
+  {mes:"2025-03",codigo_producto:"P007",nombre:"GAS. COCA COLA S/AZUCAR X 1.5 LTS",categoria:"gaseosas sin azucar",unidades_vendidas:88,ingresos:423900},
+  {mes:"2025-04",codigo_producto:"P007",nombre:"GAS. COCA COLA S/AZUCAR X 1.5 LTS",categoria:"gaseosas sin azucar",unidades_vendidas:68,ingresos:336000},
+  {mes:"2025-01",codigo_producto:"P011",nombre:"GAS. COCA COLA S/AZUCAR X 2.5 LTS",categoria:"gaseosas sin azucar",unidades_vendidas:28,ingresos:182000},
+  {mes:"2025-02",codigo_producto:"P011",nombre:"GAS. COCA COLA S/AZUCAR X 2.5 LTS",categoria:"gaseosas sin azucar",unidades_vendidas:36,ingresos:234000},
+  {mes:"2025-03",codigo_producto:"P011",nombre:"GAS. COCA COLA S/AZUCAR X 2.5 LTS",categoria:"gaseosas sin azucar",unidades_vendidas:20,ingresos:130000},
+  {mes:"2025-04",codigo_producto:"P011",nombre:"GAS. COCA COLA S/AZUCAR X 2.5 LTS",categoria:"gaseosas sin azucar",unidades_vendidas:43,ingresos:310100},
+  {mes:"2025-01",codigo_producto:"P001",nombre:"GAS. COCA COLA X 1.5 LT",categoria:"gaseosas",unidades_vendidas:318,ingresos:1673300},
+  {mes:"2025-02",codigo_producto:"P001",nombre:"GAS. COCA COLA X 1.5 LT",categoria:"gaseosas",unidades_vendidas:328,ingresos:1694750},
+  {mes:"2025-03",codigo_producto:"P001",nombre:"GAS. COCA COLA X 1.5 LT",categoria:"gaseosas",unidades_vendidas:440,ingresos:2185650},
+  {mes:"2025-04",codigo_producto:"P001",nombre:"GAS. COCA COLA X 1.5 LT",categoria:"gaseosas",unidades_vendidas:436,ingresos:1916910},
+  {mes:"2025-01",codigo_producto:"P003",nombre:"GAS. COCA COLA X 400 ML",categoria:"gaseosas",unidades_vendidas:120,ingresos:312000},
+  {mes:"2025-02",codigo_producto:"P003",nombre:"GAS. COCA COLA X 400 ML",categoria:"gaseosas",unidades_vendidas:97,ingresos:252200},
+  {mes:"2025-03",codigo_producto:"P003",nombre:"GAS. COCA COLA X 400 ML",categoria:"gaseosas",unidades_vendidas:132,ingresos:343200},
+  {mes:"2025-04",codigo_producto:"P003",nombre:"GAS. COCA COLA X 400 ML",categoria:"gaseosas",unidades_vendidas:101,ingresos:262600},
+  {mes:"2025-01",codigo_producto:"P013",nombre:"GAS. COCA COLA X 600 ML",categoria:"gaseosas",unidades_vendidas:36,ingresos:108000},
+  {mes:"2025-02",codigo_producto:"P013",nombre:"GAS. COCA COLA X 600 ML",categoria:"gaseosas",unidades_vendidas:23,ingresos:77000},
+  {mes:"2025-03",codigo_producto:"P013",nombre:"GAS. COCA COLA X 600 ML",categoria:"gaseosas",unidades_vendidas:44,ingresos:149600},
+  {mes:"2025-04",codigo_producto:"P013",nombre:"GAS. COCA COLA X 600 ML",categoria:"gaseosas",unidades_vendidas:32,ingresos:108800},
+  {mes:"2025-01",codigo_producto:"P008",nombre:"GAS. COCA COLA ZERO MINI X 250 ML",categoria:"gaseosas sin azucar",unidades_vendidas:70,ingresos:105000},
+  {mes:"2025-02",codigo_producto:"P008",nombre:"GAS. COCA COLA ZERO MINI X 250 ML",categoria:"gaseosas sin azucar",unidades_vendidas:55,ingresos:82500},
+  {mes:"2025-03",codigo_producto:"P008",nombre:"GAS. COCA COLA ZERO MINI X 250 ML",categoria:"gaseosas sin azucar",unidades_vendidas:61,ingresos:91500},
+  {mes:"2025-04",codigo_producto:"P008",nombre:"GAS. COCA COLA ZERO MINI X 250 ML",categoria:"gaseosas sin azucar",unidades_vendidas:38,ingresos:53400},
+  {mes:"2025-01",codigo_producto:"P009",nombre:"GAS. COCA COLA ZERO X 400 ML",categoria:"gaseosas sin azucar",unidades_vendidas:64,ingresos:172800},
+  {mes:"2025-02",codigo_producto:"P009",nombre:"GAS. COCA COLA ZERO X 400 ML",categoria:"gaseosas sin azucar",unidades_vendidas:29,ingresos:78300},
+  {mes:"2025-03",codigo_producto:"P009",nombre:"GAS. COCA COLA ZERO X 400 ML",categoria:"gaseosas sin azucar",unidades_vendidas:48,ingresos:129600},
+  {mes:"2025-04",codigo_producto:"P009",nombre:"GAS. COCA COLA ZERO X 400 ML",categoria:"gaseosas sin azucar",unidades_vendidas:45,ingresos:121500},
+  {mes:"2025-01",codigo_producto:"P021",nombre:"GAS. KOLA ROMAN X 400ML",categoria:"gaseosas",unidades_vendidas:15,ingresos:37500},
+  {mes:"2025-02",codigo_producto:"P021",nombre:"GAS. KOLA ROMAN X 400ML",categoria:"gaseosas",unidades_vendidas:11,ingresos:27500},
+  {mes:"2025-03",codigo_producto:"P021",nombre:"GAS. KOLA ROMAN X 400ML",categoria:"gaseosas",unidades_vendidas:15,ingresos:37500},
+  {mes:"2025-04",codigo_producto:"P021",nombre:"GAS. KOLA ROMAN X 400ML",categoria:"gaseosas",unidades_vendidas:18,ingresos:45000},
+  {mes:"2025-01",codigo_producto:"P010",nombre:"GAS. QUATRO TORON X 1.5 ML",categoria:"gaseosas",unidades_vendidas:45,ingresos:200250},
+  {mes:"2025-02",codigo_producto:"P010",nombre:"GAS. QUATRO TORON X 1.5 ML",categoria:"gaseosas",unidades_vendidas:39,ingresos:173550},
+  {mes:"2025-03",codigo_producto:"P010",nombre:"GAS. QUATRO TORON X 1.5 ML",categoria:"gaseosas",unidades_vendidas:37,ingresos:149950},
+  {mes:"2025-04",codigo_producto:"P010",nombre:"GAS. QUATRO TORON X 1.5 ML",categoria:"gaseosas",unidades_vendidas:43,ingresos:188200},
+  {mes:"2025-01",codigo_producto:"P018",nombre:"GAS. QUATRO TORON X 400 ML",categoria:"gaseosas",unidades_vendidas:14,ingresos:35000},
+  {mes:"2025-02",codigo_producto:"P018",nombre:"GAS. QUATRO TORON X 400 ML",categoria:"gaseosas",unidades_vendidas:30,ingresos:75000},
+  {mes:"2025-03",codigo_producto:"P018",nombre:"GAS. QUATRO TORON X 400 ML",categoria:"gaseosas",unidades_vendidas:27,ingresos:67500},
+  {mes:"2025-04",codigo_producto:"P018",nombre:"GAS. QUATRO TORON X 400 ML",categoria:"gaseosas",unidades_vendidas:22,ingresos:55000},
+  {mes:"2025-01",codigo_producto:"P017",nombre:"GAS. SPRITE X 1.5ML",categoria:"gaseosas",unidades_vendidas:26,ingresos:118300},
+  {mes:"2025-02",codigo_producto:"P017",nombre:"GAS. SPRITE X 1.5ML",categoria:"gaseosas",unidades_vendidas:16,ingresos:72800},
+  {mes:"2025-03",codigo_producto:"P017",nombre:"GAS. SPRITE X 1.5ML",categoria:"gaseosas",unidades_vendidas:21,ingresos:95550},
+  {mes:"2025-04",codigo_producto:"P017",nombre:"GAS. SPRITE X 1.5ML",categoria:"gaseosas",unidades_vendidas:24,ingresos:109200},
+  {mes:"2025-01",codigo_producto:"P015",nombre:"JG. DEL VALLE FRESH CITRUS X 400 ML",categoria:"jugos",unidades_vendidas:26,ingresos:49400},
+  {mes:"2025-02",codigo_producto:"P015",nombre:"JG. DEL VALLE FRESH CITRUS X 400 ML",categoria:"jugos",unidades_vendidas:13,ingresos:24700},
+  {mes:"2025-03",codigo_producto:"P015",nombre:"JG. DEL VALLE FRESH CITRUS X 400 ML",categoria:"jugos",unidades_vendidas:24,ingresos:45600},
+  {mes:"2025-04",codigo_producto:"P015",nombre:"JG. DEL VALLE FRESH CITRUS X 400 ML",categoria:"jugos",unidades_vendidas:27,ingresos:51300},
+  {mes:"2025-01",codigo_producto:"P014",nombre:"JG. DEL VALLE FRESH FRU. NARANJA X1.5 M",categoria:"jugos",unidades_vendidas:26,ingresos:110500},
+  {mes:"2025-02",codigo_producto:"P014",nombre:"JG. DEL VALLE FRESH FRU. NARANJA X1.5 M",categoria:"jugos",unidades_vendidas:22,ingresos:93500},
+  {mes:"2025-03",codigo_producto:"P014",nombre:"JG. DEL VALLE FRESH FRU. NARANJA X1.5 M",categoria:"jugos",unidades_vendidas:22,ingresos:93500},
+  {mes:"2025-04",codigo_producto:"P014",nombre:"JG. DEL VALLE FRESH FRU. NARANJA X1.5 M",categoria:"jugos",unidades_vendidas:24,ingresos:102000},
+  {mes:"2025-01",codigo_producto:"P019",nombre:"JG. DEL VALLE FRESH FRU/CITRI X 2.5 LT",categoria:"jugos",unidades_vendidas:17,ingresos:96050},
+  {mes:"2025-02",codigo_producto:"P019",nombre:"JG. DEL VALLE FRESH FRU/CITRI X 2.5 LT",categoria:"jugos",unidades_vendidas:26,ingresos:146900},
+  {mes:"2025-03",codigo_producto:"P019",nombre:"JG. DEL VALLE FRESH FRU/CITRI X 2.5 LT",categoria:"jugos",unidades_vendidas:14,ingresos:79100},
+  {mes:"2025-04",codigo_producto:"P019",nombre:"JG. DEL VALLE FRESH FRU/CITRI X 2.5 LT",categoria:"jugos",unidades_vendidas:17,ingresos:96050}
+]);
+db.ventas_mensuales.createIndex({mes:1});
+db.ventas_mensuales.createIndex({codigo_producto:1});
+db.ventas_mensuales.createIndex({mes:1,codigo_producto:1});
+db.ventas_mensuales.createIndex({categoria:1});
+print("✔ ventas_mensuales: "+db.ventas_mensuales.countDocuments());
+
+//CATEGORÍAS RESUMEN
+db.categorias_resumen.insertMany([
+  {categoria:"aguas",productos_activos:11},
+  {categoria:"aguas con gas",productos_activos:1},
+  {categoria:"bebidas con gas",productos_activos:1},
+  {categoria:"energeticas",productos_activos:1},
+  {categoria:"gaseosas",productos_activos:18},
+  {categoria:"gaseosas sin azucar",productos_activos:6},
+  {categoria:"jugos",productos_activos:6},
+  {categoria:"packs y combos",productos_activos:5}
+]);
+db.categorias_resumen.createIndex({categoria:1},{unique:true});
+print("✔ categorias_resumen: "+db.categorias_resumen.countDocuments());
+
+//VERIFICACIONES
+
+//RQF-33
+print("\n[RQF-33] Stock bajo mínimo:");
+db.catalogo_productos.find(
+  {$expr:{$lt:["$stock_actual","$stock_minimo"]},activo:true},
+  {_id:0,codigo:1,nombre:1,stock_actual:1,stock_minimo:1}
+).forEach(p=>print("  ⚠ "+p.codigo+" | "+p.nombre));
+
+//RQF-35
+print("\n[RQF-35] Top 5 ingresos Enero 2025:");
+db.ventas_mensuales
+  .find({mes:"2025-01"},{_id:0,codigo_producto:1,nombre:1,ingresos:1})
+  .sort({ingresos:-1}).limit(5)
+  .forEach(v=>print("  "+v.codigo_producto+" | "+v.nombre+" | $"+v.ingresos.toLocaleString()));
+
+//RQF-36
+print("\n[RQF-36] Devoluciones por mes:");
+db.ventas_mensuales.aggregate([
+  {$group:{_id:"$mes",
+    vendidas:{$sum:"$unidades_vendidas"}}},
+  {$sort:{_id:1}}
+]).forEach(r=>print("  "+r._id+" → "+r.vendidas+" uds vendidas"));
+
+//RQF-37
+print("\n[RQF-37] Ventas Marzo 2025 + proveedor:");
+db.ventas_mensuales.aggregate([
+  {$match:{mes:"2025-03"}},
+  {$lookup:{from:"catalogo_productos",localField:"codigo_producto",foreignField:"codigo",as:"cat"}},
+  {$unwind:"$cat"},
+  {$lookup:{from:"proveedores",localField:"cat.proveedor_id",foreignField:"_id",as:"prv"}},
+  {$unwind:"$prv"},
+  {$project:{_id:0,codigo_producto:1,nombre:1,ingresos:1,
+    proveedor:"$prv.nombre",abc:"$cat.clasificacion_abc"}},
+  {$sort:{ingresos:-1}}
+]).forEach(r=>print("  "+r.codigo_producto+" | "+r.nombre+" | $"+r.ingresos+" | "+r.proveedor+" ["+r.abc+"]"));
+
+//RQF-38
+print("\n[RQF-38] Ingresos por categoría:");
+db.ventas_mensuales.aggregate([
+  {$group:{_id:"$categoria",ingresos:{$sum:"$ingresos"},uds:{$sum:"$unidades_vendidas"}}},
+  {$sort:{ingresos:-1}}
+]).forEach(r=>print("  "+r._id+" → $"+r.ingresos.toLocaleString()+" | "+r.uds+" uds"));
+
+//RQF-39
+print("\n[RQF-39] Dashboard categorías:");
+db.categorias_resumen
+  .find({},{_id:0}).sort({categoria:1})
+  .forEach(r=>print("  "+r.categoria.padEnd(22)+" | activos:"+r.productos_activos));
+
+//RESUMEN
+print("\n── RESUMEN ──");
+["proveedores","catalogo_productos","ventas_mensuales","categorias_resumen"]
+  .forEach(c=>print("  "+c+": "+db[c].countDocuments()));
+print("  stock_boost lista ✔");
